@@ -10,7 +10,7 @@ const Page = db.define('page', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      isAlphanumeric: true,
+      is: /^[a-zA-Z0-9_]*$/,
       notContains: ' ',
     },
   },
@@ -22,6 +22,10 @@ const Page = db.define('page', {
     type: Sequelize.ENUM('open', 'closed'),
   },
 });
+
+Page.beforeValidate((page) => {
+  page.slug = slugify(page.title)
+})
 
 const User = db.define('user', {
   name: {
@@ -46,3 +50,11 @@ module.exports = {
   User,
   Page,
 };
+
+const slugify = function(str) {   
+  let newStr = str.replace(/\s+/g, '_').replace(/\W/g, '')
+  if (newStr === ''){
+    newStr = Math.random().toString(36).replace(/\./g,'')
+  }
+  return newStr
+}

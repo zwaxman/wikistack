@@ -30,7 +30,7 @@ module.exports = () =>
       <div class="form-group">
         <label for="content" class="col-sm-2 control-label">Page Content</label>
         <div class="col-sm-10">
-          <textarea id="content" name="textarea" class="form-control"></textarea>
+          <textarea id="content" name="content" class="form-control"></textarea>
         </div>
       </div>
 
